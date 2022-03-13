@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Myanmar:wght@500&family=Padauk:wght@400;700&display=swap');
+*{
+    font-family: 'summernote';
+    }
 :root{
     --color-primary:#7380ec;
     --color-danger:#ff7782;
@@ -12,10 +16,10 @@
     --color-light:#ffffff;
     --color-dark-variant:#677483;
     --color-primary-variant:#111e88;
-    --primary-soft: #f3f3f3;
     --color-icon-warning:black;
     --color-sidebar:#a3bdcc;
     --color-hr:#aeb1b4;
+    --color-hover:#d5dbe2;
 
 }
 
@@ -26,9 +30,9 @@ body{
 hr{
     border-top: 1px solid var(--color-hr) !important;
 }
-.sidebar i{
+/* .sidebar i{
     padding-right: 10px;
-}
+} */
 
 .feather-align-center{
     color:cornflowerblue;
@@ -42,6 +46,7 @@ hr{
         --color-light:rgba(0,0,0,0.4);
         --box-shadow:0 2 3 var(--color-light);
         --color-icon-warning:#ffbb55;
+        --color-hover:#63676b;
     }
 
     a:hover{
@@ -77,7 +82,7 @@ hr{
 }
 .nav-menu a:hover{
     transform: translateX(10px);
-    background: var(--primary-soft);
+    background: var(--color-hover);
 }
 .feather-plus-circle, .feather-plus{
     color:var(--color-icon-warning);
@@ -86,6 +91,9 @@ hr{
     list-style-type: none;
     margin:0;
     padding: 0;
+}
+.sidebar .feather-x{
+    padding-right: 0;
 }
 
 .menu-item{
@@ -150,7 +158,7 @@ hr{
     font-size: 15px;
     color: var(--color-dark-variant);
     font-weight:600;
-
+    padding-left: 12px;
 }
 .show-sidebar-btn{
     cursor: pointer;
@@ -266,10 +274,13 @@ hr{
     background: var(--color-white);
     
 }
-@media screen and (max-width: 780px){
+.sidebar i{
+    padding-right: 15px;
+}
+@media screen and (max-width: 800px){
     .sidebar{
-        position: fixed;
-        width: 300px;
+        position: fixed !important;
+        width: 300px !important;
         z-index: 2001;
         display: block !important;
         background: var(--color-white);
@@ -379,6 +390,9 @@ hr{
   /* recent-update */
   .recent-update p,h5, small{
       color: var(--color-dark);
+  }
+  p,h4{
+    color: var(--color-dark); 
   }
 
   .order-place h6{

@@ -12,7 +12,7 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <i class="feather-align-center"></i>
-                    <h5 class="font-weight-bold"> Select category
+                    <h5 class="font-weight-bold"> Post List
                     </h5>
                     <a href="<?php echo $url; ?>/post-add.php" class="btn btn-outline-info">
                         <i class="feather-plus-circle "></i>
@@ -26,6 +26,7 @@
                             <th>Title</th>
                             <th>Description</th>
                             <th>category</th>
+                            <th>Viewer</th>
                             <?php if($_SESSION['users']['role']==0){ ?>
                                 <th>user</th>
                             <?php } ?>
@@ -43,12 +44,14 @@
                                 <td class="text-nowrap"><?php echo short($c['title'],10) ?></td>
                                 <td class="text-nowrap"><?php echo short(strip_tags(html_entity_decode($c['description'])),20) ?></td>
                                 <td class="text-nowrap"><?php echo category($c['category_id'])['title'] ?></td>
+                                <td class=""><?php echo count(viewerCountByPost($c['id'])); ?></td>
                                 <?php if($_SESSION['users']['role']==0){ ?>
                                     <td><?php echo user($c['user_id'])['name'] ?></td>
                                 <?php } ?>
                                 <td class="text-nowrap">
                                     <a class="btn btn-sm btn-outline-danger" href="post-del.php?id=<?php echo $c['id'] ?>"><i class="feather-trash-2"></i></a>
                                     <a class="btn btn-sm btn-outline-warning" href="post-update.php?id=<?php echo $c['id'] ?>"><i class="feather-edit"></i></a>
+                                    <a class="btn btn-sm btn-outline-success" href="post-detail.php?id=<?php echo $c['id'] ?>"><i class="feather-alert-circle"></i></a>
                                 </td>
                                 <td><?php echo $time ; ?></td>
                             </tr>

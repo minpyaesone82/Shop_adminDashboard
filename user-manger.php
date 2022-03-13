@@ -1,5 +1,6 @@
-<?php  require_once "core/auth.php" ?>
-<?php  require_once "core/functions.php" ?>
+<?php require_once "core/auth.php" ?>
+<?php require_once "core/isAdmin.php" ?>
+<?php require_once "core/functions.php" ?>
 <?php include "template/header.php" ?>
 <style>
     th{

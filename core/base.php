@@ -6,4 +6,4 @@
     
     $url = "http://{$_SERVER["HTTP_HOST"]}/Dashboard-Project";
 
-    $role = ["admin","user","editor"];
+    $role = ["admin","editor","user"];

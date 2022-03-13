@@ -15,6 +15,11 @@
     <link rel="stylesheet" href="<?php echo $url ;?>/assets/css/style.css">
     <link rel="stylesheet" href="<?php echo $url ;?>/assets/vendor/bootstrap/css/bootstrap.css">
 </head>
+<style>
+  .form-group i{
+    padding-left :5px;
+  }
+</style>
 <body style="background:var(--primary-soft);">
     <div class="container">
       <div class="row d-flex align-items-center justify-content-center min-vh-100">
@@ -28,19 +33,19 @@
               } ?>
               <form action="" method="post">
                 <div class="form-group">
-                  <label for=""> <i class="feather-users text-primary"></i>Your name</label>
+                  <label for=""> <i class="feather-users text-primary mr-2"></i>Your name</label>
                   <input type="text" name="name" required class="form-control">
                 </div>
                 <div class="form-group">
-                  <label for="">  <i class="feather-mail text-primary"></i>Your email</label>
+                  <label for="">  <i class="feather-mail text-primary mr-2"></i>Your email</label>
                   <input type="text" name="email" required class="form-control">
                 </div>
                 <div class="form-group">
-                  <label for=""> <i class="feather-lock text-primary"></i>Your password</label>
+                  <label for=""> <i class="feather-lock text-primary mr-2"></i>Your password</label>
                   <input type="password" name="password" required class="form-control">
                 </div>
                 <div class="form-group">
-                  <label for=""> <i class="feather-lock text-primary"></i>Confirm password</label>
+                  <label for=""> <i class="feather-lock text-primary mr-2"></i>Confirm password</label>
                   <input type="password" name="cPassword" required class="form-control">
                 </div>
                 <div class="form-group">

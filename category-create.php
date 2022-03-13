@@ -1,4 +1,5 @@
 <?php  require_once "core/auth.php" ?>
+<?php  require_once "core/isEditor.php" ?>
 <?php  require_once "core/functions.php" ?>
 <?php include "template/header.php" ?>
 

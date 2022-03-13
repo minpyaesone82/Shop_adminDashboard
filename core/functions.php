@@ -7,6 +7,10 @@
         return header("location:$l");
     }
 
+    function linkTo($l){
+        echo "<script>location.href='$l'</script>";
+    }
+
     function countTotal($table,$condition= 1){
         $sql ="SELECT COUNT(id) FROM $table WHERE $condition";
         $total = fetch($sql);
@@ -22,6 +26,7 @@
         }
     }
 
+
     function textFilter($text){
         $text = trim($text);
         $text= htmlentities($text, ENT_QUOTES);
@@ -33,13 +38,50 @@
         return substr($str,0,$length).'...';
     }
 
+    
+
 
 //Register start
     function register(){
-        $name = $_POST['name'];
-        $email = $_POST['email'];
+        $errorStatus = 0;
+        $name = "";
+        $email = "";
         $password = $_POST['password'];
         $cPassword = $_POST['cPassword'];
+        if(empty($_POST['name'])){
+            return wrongAlert('Name is required');
+            $errorStatus = 1;
+        }else{
+            if(strlen($_POST['name']) < 5 ){
+                return wrongAlert('Name is short');
+                $errorStatus = 1;   
+            }else{
+                if(strlen($_POST['name']) > 20 ){
+                    return wrongAlert('Name is long');
+                    $errorStatus = 1;    
+                 }else{
+                    if(!preg_match("/^[a-zA-Z' ]*$/",$_POST['name'])){
+                        return wrongAlert('Only letter and white space');
+                        $errorStatus = 1;
+                    }else{
+                        $name = textFilter($_POST['name']);
+                    }
+               }
+           }
+        }
+
+        if(empty($_POST['email'])){
+            return wrongAlert('Email is required');
+            $errorStatus =1;
+        }else{
+            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                return wrongAlert('Email format is incorrect');
+                $errorStatus =1;
+              }else{
+                $email = textFilter($_POST['email']);
+              }
+        }
+        
         if($password == $cPassword){
             $sPass = password_hash($password,PASSWORD_DEFAULT);
             $sql = "INSERT INTO users (name,email,password) VALUES ('$name','$email','$sPass')";
@@ -108,13 +150,13 @@
     }
 
     function categoryCrete(){
-        $title = $_POST['title'];
+        $title = textFilter(strip_tags( $_POST['title']));
         $user_id = $_SESSION['users']['id'];
         $sql = "INSERT INTO categories (title,user_id) VALUES ('$title','$user_id')";
         mysqli_query(conn(),$sql);
     }
     function categoryUpdate(){
-        $title = $_POST['title'];
+        $title = textFilter(strip_tags( $_POST['title']));
         $id = $_POST['id'];
         $sql = "UPDATE categories SET title='$title' WHERE id=$id";
         if(runQuery($sql)){
@@ -145,14 +187,26 @@
         return fetch($sql);
     }
 
-    function posts(){
+    function posts($limit=9999){
         if($_SESSION['users']['role'] == 2){
-            $current_id = $_SESSION['users']['id'];
-            $sql ="SELECT * FROM post WHERE user_id='$current_id'";
+            $current_user_id = $_SESSION['users']['id'];
+            $sql ="SELECT * FROM post WHERE user_id='$current_user_id'";
         }else{
-            $sql ="SELECT * FROM post";
+            $sql ="SELECT * FROM post LIMIT $limit ";
         }
         return fetchAll($sql);
+    }
+
+    function dashboardPosts($limit=99999){
+        if($_SESSION["users"]['role'] ==2 ){
+            $current_user_id = $_SESSION['users']['id'];
+            $sql ="SELECT * FROM post WHERE user_id = '$current_user_id' ORDER BY id DESC LIMIT $limit" ;
+        }else{
+            $sql ="SELECT * FROM post ORDER BY id DESC LIMIT $limit";
+        }
+        
+        return fetchAll($sql);
+       
     }
 
     function postUpdate(){
@@ -166,3 +220,74 @@
 }
 //post end
 
+
+//viewer count//
+    function viewerCountByPost($post_id){
+        $sql = "SELECT * FROM viewers WHERE post_id=$post_id";
+        return fetchAll($sql);
+    }
+
+    function ViewerRecord($userId,$postId,$device){
+        $sql = "INSERT INTO viewers (user_id,post_id,device) VALUES ('$userId','$postId','$device')";
+        return runQuery($sql);
+    }
+//viewer count//
+
+
+//front-panel-start
+
+    function postByCat($category_id,$limit='9999',$post_id=0){
+        $sql = "SELECT * FROM post WHERE category_id= '$category_id' AND id!=$post_id ORDER BY id DESC LIMIT $limit ";
+        return fetchAll($sql);
+    }
+
+    function fPost ($orderCol="id",$orderType="DESC"){
+        $sql ="SELECT * FROM post ORDER BY $orderCol $orderType";
+    
+    return fetchAll($sql);
+    }
+
+    function fCategory(){
+        $sql ="SELECT * FROM categories ORDER BY ordering DESC";
+        return fetchAll($sql);
+    }
+
+//front-panel-end
+
+//search -start//
+
+function search($searchKey){
+    $sql ="SELECT * FROM post WHERE title LIKE '%$searchKey%' OR description LIKE '%$searchKey%' ORDER BY id DESC";
+    return fetchAll($sql);
+}
+
+function searchByDate($start,$end){
+    $sql ="SELECT * FROM post WHERE created_at BETWEEN '$start' and '$end' ORDER BY id DESC";
+    return fetchAll($sql);
+}
+
+//search -end //
+
+ //ads show//
+ function ads(){
+    $today = date("Y-m-d");
+    $sql = "SELECT * FROM ads WHERE start <='$today' AND end > '$today'  ";
+    return fetchAll($sql);
+}
+
+function ad(){
+    $sql = "SELECT * FROM ads";
+    return fetchAll($sql);
+}
+
+function adsAdd(){
+     
+    $owner_name =$_GET['owner_name'];
+    $photo =$_GET['photo'];
+    $link =$_GET['link'];
+    $start =$_GET['start'];
+    $end =$_GET['end'];
+    $sql = "INSERT INTO ads (owner_name,photo,link,start,end) VALUES ('$owner_name','$photo','$link','$start','$end')";
+    return runQuery($sql);
+}
+//ads show//

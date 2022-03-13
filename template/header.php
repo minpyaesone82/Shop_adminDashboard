@@ -10,7 +10,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="<?php echo $url ;?>/assets/css/app.css">
-    <link rel="stylesheet" href="<?php echo $url ;?>/assets/flatly">
     <link rel="stylesheet" href="<?php echo $url ;?>/assets/vendor/feather-icons-web/feather.css">
     <link rel="stylesheet" href="<?php echo $url ;?>/assets/css/style.css">
     <link rel="stylesheet" href="<?php echo $url ;?>/assets/vendor/bootstrap/css/bootstrap.css">

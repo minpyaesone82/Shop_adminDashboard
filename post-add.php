@@ -2,11 +2,16 @@
 <?php require_once "core/functions.php"; ?>
 <?php include "template/header.php" ?>
 
+<?php 
+    if(isset($_POST['post_add'])){
+        echo postAdd();
+    }
+?>
     <div class="col-12">
         <div class="">
             <form class="row" method="post">
                 <div class="col-12 col-lg-8">
-                    <div class="card shadow">
+                    <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5>
@@ -21,14 +26,9 @@
                             </div>
                             <hr>
                             
-                                <?php 
-                                    if(isset($_POST['post_add'])){
-                                        echo postAdd();
-                                    }
-                                ?>
                                 <div class="form-group">
                                     <label for="" >Title</label>
-                                    <input type="text" name ="title" required class="form-control">
+                                    <input type="text" name ="title" required class="form-control post_add" style="font-family: 'summernote';">
                                 </div>
                                 
                                 <div class="form-group mb-0">
