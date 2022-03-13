@@ -89,7 +89,7 @@
         </div>
         
         <div class="col-12  col-lg-4 ">
-            <div class="">
+            <div class="d-none d-lg-block">
                 <h4 class="mb-3 font-weight-350">Search By Date</h4>
                 <div class="card shadow-sm"  style="background:var(--color-white)">
                     <div class="card-body">
